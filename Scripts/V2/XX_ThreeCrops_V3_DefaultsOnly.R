@@ -399,6 +399,106 @@ Data %>%
                           "ph"))
 
 
+
+
+
+Figure2_Draft <- Data_NoAS %>% 
+  ggplot(aes(x = CLPH_NE %>% as.numeric(),
+             group = CLPH_Density %>% as.factor())) +
+  
+  geom_line(aes(y = CLPH_Means, 
+                color = CLPH_Density %>% as.factor()),
+            linewidth = 1) +
+  
+  geom_point(aes(y = CLPH_Means, 
+                 color = CLPH_Density %>% as.factor())) +
+  
+  geom_ribbon(
+    aes(
+      y = CLPH_Means,
+      ymin = CLPH_Ymin,
+      ymax = CLPH_Ymax,
+      fill = CLPH_Density %>% as.factor()
+    ),
+    outline.type = "both",
+    alpha = 0.2
+  ) +
+  
+  theme_bw() +
+  
+  facet_grid(Crop ~ CLPH_Type, 
+             labeller = as_labeller(c(Barley = "Barley", 
+                                      OSR = "OSR", 
+                                      Wheat = "Wheat",
+                                      "ET" = "Economic\nThreshold", 
+                                      "NS" = "Never\nSpray")),
+             scales = "free_y") +
+  
+  geom_hline(yintercept = 0) +
+  
+  scale_color_manual(name = "Pest density",
+                     labels = c("Low", "Medium", "High"),
+                     values = c("#C6DBEF", "#4292C6", "black")) +
+  
+  scale_fill_manual(name = "Pest density",
+                    labels = c("Low", "Medium", "High"),
+                    values = c("#C6DBEF", "#4292C6", "black")) +
+  
+  scale_y_continuous(
+    name = "Average annual percentage lost yield per hectare compared to 100% NEs",
+    labels = scales::label_currency(prefix = "£")) +
+  
+  scale_x_continuous(
+    name = "Natural enemy presence as percentage.",
+    breaks = seq.int(from = 0, to = 1, by = 0.25),
+    labels  = seq.int(from = 0, to = 1, by = 0.25) %>%
+      sprintf("%.2f", .)
+  )  +
+  
+  # guides(fill = "none") + ## changed FALSE to NONE
+  
+  theme(
+    strip.background = element_rect(fill = "white"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    legend.position = "bottom",
+    legend.background = element_blank(),
+    legend.box.background = element_rect(colour = "white"),
+    legend.text = TextType,
+    strip.text = TextType,
+    text = TextType,
+    axis.text.x = element_text(size = TextSize,
+                               colour = "black",
+                               family = TextFamily,
+                               angle = 30,
+                               hjust = 0.75),
+    axis.text.y = TextType,
+    axis.title.y = TextType,
+    axis.title.x = TextType,
+    panel.spacing.x = unit(0.75, "cm"),
+    panel.spacing.y = unit(0.75, "cm"),
+    strip.text.y.right = element_text(size = TextSize,
+                                      colour = "black",
+                                      family = TextFamily,
+                                      angle = 0)
+  ) 
+
+
+Figure2_Draft %>% 
+  ggsave(
+    device = "png",
+    filename = paste0(here(), 
+                      "/Output/Figures/",
+                      "CLPH_Plot_ThreeCrops_V3_Draft.png"), 
+    width = 25,
+    height = 15,
+    units = "cm",
+    dpi = 500
+  )
+
+
 # ******************************************************************************
 #### Headline LPH ####
 # ******************************************************************************
@@ -514,6 +614,108 @@ Data %>%
 
 
 
+#### ALTERNATIVE PLOT # ******************************************************************************
+
+Figure3_Draft <- Data %>% 
+  ggplot(aes(x = LPH_NE %>% as.numeric(),
+             group = LPH_Density %>% as.factor())) +
+  
+  geom_line(aes(y = LPH_Means, 
+                color = LPH_Density %>% as.factor()),
+            linewidth = 1) +
+  
+  geom_point(aes(y = LPH_Means, 
+                 color = LPH_Density %>% as.factor())) +
+  
+  geom_ribbon(
+    aes(
+      y = LPH_Means,
+      ymin = LPH_Ymin,
+      ymax = LPH_Ymax,
+      fill = LPH_Density %>% as.factor()
+    ),
+    outline.type = "both",
+    alpha = 0.2
+  ) +
+  
+  theme_bw() +
+  
+  facet_grid(Crop ~ LPH_Type, 
+             labeller = as_labeller(c(Barley = "Barley", 
+                                      OSR = "OSR", 
+                                      Wheat = "Wheat",
+                                      "AS" = "Always Spray",
+                                      "ET" = "Economic Threshold", 
+                                      "NS" = "Never Spray")),
+             scales = "free_y") +
+  
+  geom_hline(yintercept = 0) +
+  
+  scale_color_manual(name = "Pest density",
+                     labels = c("Low", "Medium", "High"),
+                     values = c("#C6DBEF", "#4292C6", "black")) +
+  
+  scale_fill_manual(name = "Pest density",
+                    labels = c("Low", "Medium", "High"),
+                    values = c("#C6DBEF", "#4292C6", "black")) +
+  
+  scale_y_continuous(name = "Mean lost yield\nper hectare (£ph)",
+                     breaks = seq.int(from = 0, to = 500, by = 100),
+                     labels = scales::label_currency(prefix = "£")) +
+  
+  scale_x_continuous(
+    name = "Natural enemy presence as percentage.",
+    breaks = seq.int(from = 0, to = 1, by = 0.25),
+    labels  = seq.int(from = 0, to = 1, by = 0.25) %>%
+      sprintf("%.2f", .)
+  )  +
+  
+  # guides(fill = "none") + ## changed FALSE to NONE
+  
+  theme(
+    strip.background = element_rect(fill = "white"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    legend.position = "bottom",
+    legend.background = element_blank(),
+    legend.box.background = element_rect(colour = "white"),
+    legend.text = TextType,
+    strip.text = TextType,
+    text = TextType,
+    axis.text.x = element_text(size = TextSize,
+                               colour = "black",
+                               family = TextFamily,
+                               angle = 30,
+                               hjust = 0.75),
+    axis.text.y = TextType,
+    axis.title.y = TextType,
+    axis.title.x = TextType,
+    panel.spacing.x = unit(0.75, "cm"),
+    panel.spacing.y = unit(0.75, "cm"),
+    strip.text.y.right = element_text(size = TextSize,
+                                      colour = "black",
+                                      family = TextFamily,
+                                      angle = 0)
+  ) 
+
+
+
+## Export here
+Figure3_Draft %>% 
+  ggsave(
+    device = "png",
+    filename = paste0(here(), 
+                      "/Output/Figures/",
+                      "LPH_ThreeCrops_V3_Draft.png"), 
+    width = 25,
+    height = 15,
+    units = "cm",
+    dpi = 500
+  )
+
+
 # ******************************************************************************
 #### Yield loss ####
 # ******************************************************************************
@@ -618,6 +820,11 @@ YL_Plot %>%
   )
 
 
+
+
+
+
+
 ## Display data for summary sentences:
 Data %>% 
   dplyr::filter(YL_NE == 0.9 &
@@ -632,6 +839,108 @@ Data %>%
                           "%"))
 
 
+
+
+
+Figure1_Draft <- 
+Data_NoAS %>% 
+  ggplot(aes(x = YL_NE %>% as.numeric(),
+             group = YL_Density %>% as.factor())) +
+  
+  geom_line(aes(y = YL_Means, 
+                color = YL_Density %>% as.factor()),
+            linewidth = 1) +
+  
+  geom_point(aes(y = YL_Means, 
+                 color = YL_Density %>% as.factor())) +
+  
+  geom_ribbon(
+    aes(
+      y = YL_Means,
+      ymin = YL_Ymin,
+      ymax = YL_Ymax,
+      fill = YL_Density %>% as.factor()
+    ),
+    outline.type = "both",
+    alpha = 0.2
+  ) +
+  
+  theme_bw() +
+  
+  facet_grid(Crop ~ YL_Type, 
+             labeller = as_labeller(c(Barley = "Barley", 
+                                      OSR = "OSR", 
+                                      Wheat = "Wheat",
+                                      "ET" = "Economic Threshold", 
+                                      "NS" = "Never Spray")),
+             scales = "free_y") +
+  
+  geom_hline(yintercept = 0, 
+             alpha = 0.25, 
+             linetype = "dashed") +
+  
+  scale_color_manual(name = "Pest density",
+                     labels = c("Low", "Medium", "High"),
+                     values = c("#C6DBEF", "#4292C6", "black")) +
+  
+  scale_fill_manual(name = "Pest density",
+                    labels = c("Low", "Medium", "High"),
+                    values = c("#C6DBEF", "#4292C6", "black")) +
+  
+  scale_x_continuous(
+    name = "Natural enemy presence as percentage.",
+    breaks = seq.int(from = 0, to = 1, by = 0.25),
+    labels  = seq.int(from = 0, to = 1, by = 0.25) %>%
+      sprintf("%.2f", .)
+  )  +
+  
+  
+  scale_y_continuous(
+    name = "Average annual lost yield per hectare",
+    labels = scales::percent_format(scale = 1, 
+                                    suffix = "%")
+  ) +
+  
+  theme(
+    strip.background = element_rect(fill = "white"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    legend.position = "bottom",
+    legend.background = element_blank(),
+    legend.box.background = element_rect(colour = "white"),
+    legend.text = TextType,
+    strip.text = TextType,
+    text = TextType,
+    axis.text.x = element_text(size = TextSize,
+                               colour = "black",
+                               family = TextFamily,
+                               angle = 30,
+                               hjust = 0.75),
+    axis.text.y = TextType,
+    axis.title.y = TextType,
+    axis.title.x = TextType,
+    panel.spacing.x = unit(0.75, "cm"),
+    panel.spacing.y = unit(0.75, "cm"),
+    strip.text.y.right = element_text(size = TextSize,
+                                      colour = "black",
+                                      family = TextFamily,
+                                      angle = 0))
+
+
+## Export here
+Figure1_Draft %>% 
+  ggsave(
+    device = "png",
+    filename = paste0(here(), 
+                      "/Output/Figures/",
+                      "YL_ThreeCrops_V3_Draft.png"), 
+    width = 25,
+    height = 15,
+    units = "cm",
+    dpi = 500
+  )
 
 
 # ******************************************************************************
