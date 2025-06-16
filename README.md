@@ -8,30 +8,29 @@ Repo for the analysis for task D1 of work package D for the DRUID project: <http
 
 #### Keywords:
 
-Economic valuation, production functions, pest regulation, pesticide, natural enemies, insects, insecticides.
+Economic valuation, production functions, pest regulation, natural enemies, insects, insecticides.
 
 #### Paper co-authors:
 
 Peter King (Leeds), Theresa Robinson (JNCC), Charlotte Howard (Reading), Tom Breeze (Reading), Martin Dallimer (Imperial). Correspondence: p.king1\@leeds.ac.uk
 
-#### **Funding:** 
+#### **Funding:**
 
 This work was supported by the Natural Environment Research Council Grant/Award Number: NE/V006916/1
 
-#### Last change: 21/03/2025
+#### Last change: 16/06/2025
 
-#### Status: About to submit manuscript and organising replication files
+#### Status: Major revisions (round 1) at ***Ecosystem Services***
 
 #### Organisation
 
--   In /Scripts/ there is R code that will estimate a production function for each of our three crops and then combine results.
+-   In /Scripts/V2/ there is R code that will estimate a production function for each of our three crops and then combine results.
 -   These scripts are pretty long and complex, outputting multiple tables/figures
 -   In-text, we only use the figures for losses per hectare (LPH), change in LPH (CLPH), and yield losses (YL).
 -   "\_InsecticdeSA" refers to the sensitivity analysis around insecticide costs
 -   "\_ThresholdSA" refers to the sensitivity analysis around insecticide thresholds
 
-
-```
+```         
 # ─ Session info ───────────────────────────────────────────────────────────────
 #  setting  value
 #  version  R version 4.4.1 (2024-06-14 ucrt)
@@ -115,5 +114,4 @@ This work was supported by the Natural Environment Research Council Grant/Award 
 #  [1] C:/Users/earpkin/AppData/Local/Programs/R/R-4.4.1/library
 # 
 #  D ── DLL MD5 mismatch, broken installation.
-
 ```

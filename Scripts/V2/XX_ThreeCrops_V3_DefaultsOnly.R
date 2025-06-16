@@ -1,9 +1,10 @@
 #### DRUID D1: Intro plotting of OSR data  ###############
 # Function: To do sensitivity analysis with OSR data
 # Author: Dr Peter King (p.king1@Leeds.ac.uk)
-# Last Edited: 06/06/2024
+# Last Edited: 16/06/2025
 # Change:
 ## - This version does sensitivity analysis
+## - R1 wanted changed colours, which I define as PlotColours
 
 
 # *****************************************************************************
@@ -165,7 +166,11 @@ TextType <- element_text(size = TextSize,
                          colour = "black",
                          family = TextFamily)
 
+## Define all colours here for ease
+PlotColours <- c(RColorBrewer::brewer.pal(n = 9, name = "Blues")[c(6, 8)], "black")
 
+
+## Filter for non-AS fields as AS doesn't change with NEs
 Data_NoAS <- Data %>% dplyr::filter(YL_Type != "AS")
 
 
@@ -213,10 +218,10 @@ CLPH_Plot_Percent <-
   geom_hline(yintercept = 0) +
   
   scale_color_manual(name = "Pest density",
-                     values = c("#C6DBEF", "#4292C6", "black")) +
+                     values = PlotColours) +
   
   scale_fill_manual(name = "Pest density",
-                    values = c("#C6DBEF", "#4292C6", "black")) +
+                    values = PlotColours) +
   
   scale_y_continuous(
     name = "Average annual percentage lost yield per hectare compared to 100% NEs",
@@ -328,11 +333,11 @@ CLPH_Plot <-
   
   scale_color_manual(name = "Pest density",
                      labels = c("Low", "Medium", "High"),
-                     values = c("#C6DBEF", "#4292C6", "black")) +
+                     values = PlotColours) +
   
   scale_fill_manual(name = "Pest density",
                     labels = c("Low", "Medium", "High"),
-                    values = c("#C6DBEF", "#4292C6", "black")) +
+                    values = PlotColours) +
   
   scale_y_continuous(
     name = "Average annual percentage lost yield per hectare compared to 100% NEs",
@@ -402,7 +407,8 @@ Data %>%
 
 
 
-Figure2_Draft <- Data_NoAS %>% 
+Figure2_Draft <- 
+  Data_NoAS %>% 
   ggplot(aes(x = CLPH_NE %>% as.numeric(),
              group = CLPH_Density %>% as.factor())) +
   
@@ -430,22 +436,22 @@ Figure2_Draft <- Data_NoAS %>%
              labeller = as_labeller(c(Barley = "Barley", 
                                       OSR = "OSR", 
                                       Wheat = "Wheat",
-                                      "ET" = "Economic\nThreshold", 
-                                      "NS" = "Never\nSpray")),
+                                      "ET" = "Economic Threshold", 
+                                      "NS" = "Never Spray")),
              scales = "free_y") +
   
   geom_hline(yintercept = 0) +
   
   scale_color_manual(name = "Pest density",
                      labels = c("Low", "Medium", "High"),
-                     values = c("#C6DBEF", "#4292C6", "black")) +
+                     values = PlotColours) +
   
   scale_fill_manual(name = "Pest density",
                     labels = c("Low", "Medium", "High"),
-                    values = c("#C6DBEF", "#4292C6", "black")) +
+                    values = PlotColours) +
   
   scale_y_continuous(
-    name = "Average annual percentage lost yield per hectare compared to 100% NEs",
+    name = "Average annual percentage lost yield per hectare\ncompared to 100% NEs",
     labels = scales::label_currency(prefix = "£")) +
   
   scale_x_continuous(
@@ -543,11 +549,11 @@ LPH_Plot <- Data %>%
   
   scale_color_manual(name = "Pest density",
                      labels = c("Low", "Medium", "High"),
-                     values = c("#C6DBEF", "#4292C6", "black")) +
+                     values = PlotColours) +
   
   scale_fill_manual(name = "Pest density",
                     labels = c("Low", "Medium", "High"),
-                    values = c("#C6DBEF", "#4292C6", "black")) +
+                    values = PlotColours) +
   
   scale_y_continuous(name = "Mean lost yield\nper hectare ",
                      breaks = seq.int(from = 0, to = 500, by = 100),
@@ -616,6 +622,7 @@ Data %>%
 
 #### ALTERNATIVE PLOT # ******************************************************************************
 
+
 Figure3_Draft <- Data %>% 
   ggplot(aes(x = LPH_NE %>% as.numeric(),
              group = LPH_Density %>% as.factor())) +
@@ -653,11 +660,11 @@ Figure3_Draft <- Data %>%
   
   scale_color_manual(name = "Pest density",
                      labels = c("Low", "Medium", "High"),
-                     values = c("#C6DBEF", "#4292C6", "black")) +
+                     values = PlotColours) +
   
   scale_fill_manual(name = "Pest density",
                     labels = c("Low", "Medium", "High"),
-                    values = c("#C6DBEF", "#4292C6", "black")) +
+                    values = PlotColours) +
   
   scale_y_continuous(name = "Mean lost yield\nper hectare (£ph)",
                      breaks = seq.int(from = 0, to = 500, by = 100),
@@ -723,7 +730,8 @@ Figure3_Draft %>%
 
 
 ## Plot Yield without AS
-YL_Plot <- Data_NoAS %>% 
+YL_Plot <- 
+  Data_NoAS %>% 
   ggplot(aes(x = YL_NE %>% as.numeric(),
              group = YL_Density %>% as.factor())) +
   
@@ -761,11 +769,11 @@ YL_Plot <- Data_NoAS %>%
   
   scale_color_manual(name = "Pest density",
                      labels = c("Low", "Medium", "High"),
-                     values = c("#C6DBEF", "#4292C6", "black")) +
+                     values = PlotColours) +
   
   scale_fill_manual(name = "Pest density",
                     labels = c("Low", "Medium", "High"),
-                    values = c("#C6DBEF", "#4292C6", "black")) +
+                    values = PlotColours) +
   
   scale_x_continuous(
     name = "Natural enemy presence as percentage.",
@@ -881,11 +889,11 @@ Data_NoAS %>%
   
   scale_color_manual(name = "Pest density",
                      labels = c("Low", "Medium", "High"),
-                     values = c("#C6DBEF", "#4292C6", "black")) +
+                     values = PlotColours) +
   
   scale_fill_manual(name = "Pest density",
                     labels = c("Low", "Medium", "High"),
-                    values = c("#C6DBEF", "#4292C6", "black")) +
+                    values = PlotColours) +
   
   scale_x_continuous(
     name = "Natural enemy presence as percentage.",

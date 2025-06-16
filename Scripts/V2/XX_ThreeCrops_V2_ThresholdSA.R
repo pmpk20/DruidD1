@@ -1,9 +1,10 @@
 #### DRUID D1: Intro plotting of OSR data  ###############
 # Function: To do sensitivity analysis with OSR data
 # Author: Dr Peter King (p.king1@Leeds.ac.uk)
-# Last Edited: 06/06/2024
+# Last Edited: 16/06/2025
 # Change:
 ## - This version does sensitivity analysis
+## - R1 wanted changed colours, which I define as PlotColours
 
 
 # *****************************************************************************
@@ -128,7 +129,7 @@ Data_YL <- rbind(Wheat_YL,
 
 
 # ******************************************************************************
-#### Yield loss Plot setup ####
+#### Plot setup ####
 # ******************************************************************************
 
 
@@ -140,8 +141,138 @@ TextType <- element_text(size = TextSize,
                          family = TextFamily)
 
 
+## Define all colours here for ease
+PlotColours <- c(RColorBrewer::brewer.pal(n = 9, name = "Blues")[c(6, 8)], "black")
 
-# 
+
+
+
+# ******************************************************************************
+#### Plot creation ####
+# ******************************************************************************
+
+
+
+## Plot LPH
+LPH_Plot <- 
+  Data_LPH %>% 
+  dplyr::filter(Type == "ET") %>% 
+  ggplot(aes(
+    x = NE %>% as.numeric(),
+    group = Density %>% as.factor()
+  )) +
+  
+  geom_line(aes(y = Means, 
+                color = Density %>% as.factor()),
+            linewidth = 1) +
+  
+  geom_point(aes(y = Means, 
+                 color = Density %>% as.factor())) +
+  
+  geom_ribbon(
+    aes(
+      y = Means,
+      ymin = Ymin,
+      ymax = Ymax,
+      fill = Density %>% as.factor()
+    ),
+    outline.type = "both",
+    alpha = 0.2
+  ) +
+  
+  theme_bw() +
+  
+  facet_grid(Crop ~ Threshold, 
+             labeller = as_labeller(c(Barley = "Barley", 
+                                      OSR = "OSR", 
+                                      Wheat = "Wheat",
+                                      
+                                      "1" = "Lowest",
+                                      "2.5" = "Low",
+                                      "5" = "Default",
+                                      "7.5" = "High",
+                                      "10" = "Highest"
+             )),
+             space = "free_y",
+             scales = "free_y") +
+  
+  geom_hline(yintercept = 0) +
+  
+  scale_color_manual(name = "Pest density",
+                     labels = c("Low", "Medium", "High"),
+                     values = PlotColours) +
+  
+  scale_fill_manual(name = "Pest density",
+                    labels = c("Low", "Medium", "High"),
+                    values = PlotColours) +
+  
+  scale_x_continuous(
+    name = "Natural enemy presence as percentage.",
+    breaks = seq.int(from = 0, to = 1, by = 0.25),
+    labels  = seq.int(from = 0, to = 1, by = 0.25) %>%
+      sprintf("%.2f", .)
+  )  +
+  
+  scale_y_continuous(name = "Mean lost yield\nper hectare ",
+                     breaks = seq.int(from = 0, to = 500, by = 100),
+                     labels = scales::label_currency(prefix = "£")) +
+  
+  theme(
+    strip.background = element_rect(fill = "white"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor.y = element_blank(),
+    legend.position = "bottom",
+    legend.background = element_blank(),
+    legend.box.background = element_rect(colour = "white"),
+    legend.text = TextType,
+    strip.text = TextType,
+    text = TextType,
+    axis.title.x = TextType,
+    axis.text.y = TextType,
+    axis.title.y = TextType,
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 0.75,
+      size = TextSize,
+      colour = "black",
+      family = TextFamily
+    ),
+    panel.spacing.x = unit(0.75, "cm"),
+    panel.spacing.y = unit(0.75, "cm")
+  )
+
+
+
+
+# ******************************************************************************
+#### Plot export ####
+# ******************************************************************************
+
+
+## Export here
+LPH_Plot %>% 
+  ggsave(
+    device = "png",
+    filename = paste0(here(), 
+                      "/Output/Figures/",
+                      "ThreeCrops_ThresholdSA_V2_LPH_Plot.png"), 
+    width = 25,
+    height = 15,
+    units = "cm",
+    dpi = 500
+  )
+
+
+
+
+# ******************************************************************************
+#### OLD ####
+# ******************************************************************************
+
+
+
 # ## Plot Yield without AS
 # YL_Plot <- 
 #   Data_YL %>% 
@@ -232,7 +363,7 @@ TextType <- element_text(size = TextSize,
 
 
 # ******************************************************************************
-#### Change in loss per hectare setup ####
+#### Change in loss per hectare setup 
 # ******************************************************************************
 
 
@@ -322,116 +453,4 @@ TextType <- element_text(size = TextSize,
 #     dpi = 500
 #   )
 # 
-
-
-# ******************************************************************************
-#### Loss per hectare setup ####
-# ******************************************************************************
-
-
-
-## Plot LPH
-LPH_Plot <- 
-  Data_LPH %>% 
-  dplyr::filter(Type == "ET") %>% 
-  ggplot(aes(
-    x = NE %>% as.numeric(),
-    group = Density %>% as.factor()
-  )) +
-  
-  geom_line(aes(y = Means, 
-                color = Density %>% as.factor()),
-            linewidth = 1) +
-  
-  geom_point(aes(y = Means, 
-                 color = Density %>% as.factor())) +
-  
-  geom_ribbon(
-    aes(
-      y = Means,
-      ymin = Ymin,
-      ymax = Ymax,
-      fill = Density %>% as.factor()
-    ),
-    outline.type = "both",
-    alpha = 0.2
-  ) +
-  
-  theme_bw() +
-  
-  facet_grid(Crop ~ Threshold, 
-             labeller = as_labeller(c(Barley = "Barley", 
-                                      OSR = "OSR", 
-                                      Wheat = "Wheat",
-                                      
-                                      "1" = "Lowest",
-                                      "2.5" = "Low",
-                                      "5" = "Default",
-                                      "7.5" = "High",
-                                      "10" = "Highest"
-             )),
-             space = "free_y",
-             scales = "free_y") +
-  
-  geom_hline(yintercept = 0) +
-  
-  scale_color_manual(name = "Pest density",
-                     labels = c("Low", "Medium", "High"),
-                     values = c("#C6DBEF", "#4292C6", "black")) +
-  
-  scale_fill_manual(name = "Pest density",
-                    labels = c("Low", "Medium", "High"),
-                    values = c("#C6DBEF", "#4292C6", "black")) +
-  
-  scale_x_continuous(
-    name = "Natural enemy presence as percentage.",
-    breaks = seq.int(from = 0, to = 1, by = 0.25),
-    labels  = seq.int(from = 0, to = 1, by = 0.25) %>%
-      sprintf("%.2f", .)
-  )  +
-  
-  scale_y_continuous(name = "Mean lost yield\nper hectare ",
-                     breaks = seq.int(from = 0, to = 500, by = 100),
-                     labels = scales::label_currency(prefix = "£")) +
-  
-  theme(
-    strip.background = element_rect(fill = "white"),
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
-    panel.grid.major.y = element_blank(),
-    panel.grid.minor.y = element_blank(),
-    legend.position = "bottom",
-    legend.background = element_blank(),
-    legend.box.background = element_rect(colour = "white"),
-    legend.text = TextType,
-    strip.text = TextType,
-    text = TextType,
-    axis.title.x = TextType,
-    axis.text.y = TextType,
-    axis.title.y = TextType,
-    axis.text.x = element_text(
-      angle = 45,
-      hjust = 0.75,
-      size = TextSize,
-      colour = "black",
-      family = TextFamily
-    ),
-    panel.spacing.x = unit(0.75, "cm"),
-    panel.spacing.y = unit(0.75, "cm")
-  )
-
-
-
-## Export here
-LPH_Plot %>% 
-  ggsave(
-    device = "png",
-    filename = paste0(here(), 
-                      "/Output/Figures/",
-                      "ThreeCrops_ThresholdSA_V2_LPH_Plot.png"), 
-    width = 25,
-    height = 15,
-    units = "cm",
-    dpi = 500
-  )
 
