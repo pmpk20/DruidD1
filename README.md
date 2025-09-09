@@ -22,8 +22,9 @@ This work was supported by the Natural Environment Research Council Grant/Award 
 
 #### Organisation
 
--   In /Scripts/V2/ there is R code that will estimate a production function for each of our three crops and then combine results.
--   These scripts are pretty long and complex, outputting multiple tables/figures
+-   Use *00_AllScriptsHere.R* to sequentially estimate all data + figures in the manuscript.
+-   This script is numbered in order of manusript appearance
+-   The production function script themselves are pretty long and complex, outputting multiple tables/figures
 -   In-text, we only use the figures for losses per hectare (LPH), change in LPH (CLPH), and yield losses (YL).
 -   "\_InsecticdeSA" refers to the sensitivity analysis around insecticide costs
 -   "\_ThresholdSA" refers to the sensitivity analysis around insecticide thresholds
@@ -34,117 +35,36 @@ This work was supported by the Natural Environment Research Council Grant/Award 
 ## List files recursively with nice tree
 # > fs::dir_tree(path = ".")
 # .
+# ├── 00_AllScriptsHere.R
 # ├── DruidD1.Rproj
 # ├── MarketData
 # │   ├── AllCropData_V2.xlsx
-# │   ├── AUK-Chapter7-14jul22.ods
-# │   ├── flea_beetles_and_crop_damage.csv
+# │   ├── DEFRAData_AUK-Chapter7-14jul22.ods
 # │   ├── Nix Input Data.xlsx
-# │   ├── NIX sprays costs 2011 2021.xlsx
-# │   └── TableX_OutputMarketData.R
+# │   └── NIX sprays costs 2011 2021.xlsx
 # ├── Output
 # │   ├── Figures
-# │   │   ├── Barley_InsecticideSA_V2_LPH_Plot.png
-# │   │   ├── Barley_InsecticideSA_V3_LPH_Plot.png
-# │   │   ├── Barley_plots_patchwork.png
-# │   │   ├── Barley_ThresholdSA_V2_LPH_Plot.png
-# │   │   ├── CLPH_Percent_Plot_Barley_V3.png
-# │   │   ├── CLPH_Percent_Plot_OSR_TEST.png
-# │   │   ├── CLPH_Percent_Plot_OSR_V3.png
-# │   │   ├── CLPH_Percent_Plot_Wheat_V3.png
-# │   │   ├── CLPH_Percent_ThreeCrops_V3.png
-# │   │   ├── CLPH_Plot_ThreeCrops_V3.png
-# │   │   ├── CLPH_Plot_ThreeCrops_V3_Draft.png
-# │   │   ├── CLPH_ThreeCrops_V2.png
-# │   │   ├── CLPH_ThreeCrops_V3.png
 # │   │   ├── Factsheet_Plot_V3.png
-# │   │   ├── Figure1_YieldLossAllThreeCrops.png
-# │   │   ├── Figure2_ChangeYieldLossAllThreeCrops.png
-# │   │   ├── Figure3_LossPerHectareAllThreeCrops.png
-# │   │   ├── FigureX_WheatYieldLossByScenario.png
-# │   │   ├── FigureZ_Barley_Plotting_Example0.jpeg
-# │   │   ├── FigureZ_Barley_Plotting_Example1.jpeg
-# │   │   ├── FigureZ_Barley_Plotting_Example2.jpeg
-# │   │   ├── FigureZ_Barley_T10_Plotting_Example2.jpeg
-# │   │   ├── FigureZ_Barley_T5_Plotting_Example1.jpeg
-# │   │   ├── FigureZ_Barley_T5_Plotting_Example2.jpeg
-# │   │   ├── FigureZ_CLPH_All.png
-# │   │   ├── FigureZ_Example0_All.png
-# │   │   ├── FigureZ_Example1_All.png
-# │   │   ├── FigureZ_LPH_All.png
-# │   │   ├── FigureZ_OSR_Plotting_Example0.jpeg
-# │   │   ├── FigureZ_OSR_Plotting_Example2.jpeg
-# │   │   ├── FigureZ_OSR_T5_Plotting_Example1.jpeg
-# │   │   ├── FigureZ_Wheat_Plotting_Example0.jpeg
-# │   │   ├── FigureZ_Wheat_Plotting_Example0_New.jpeg
-# │   │   ├── FigureZ_Wheat_Plotting_Example1.jpeg
-# │   │   ├── FigureZ_Wheat_Plotting_Example2.jpeg
-# │   │   ├── FigureZ_Wheat_T5_Plotting_Example2.jpeg
-# │   │   ├── FigureZ_YL_All.png
-# │   │   ├── LPH_Plot_ThreeCrops_V3.png
-# │   │   ├── LPH_ThreeCrops_V2.png
-# │   │   ├── LPH_ThreeCrops_V3_Draft.png
-# │   │   ├── OSR_InsecticideSA_V2_LPH_Plot.png
-# │   │   ├── OSR_InsecticideSA_V3_LPH_Plot.png
-# │   │   ├── OSR_plots_patchwork.png
-# │   │   ├── OSR_ThresholdSA_V2_LPH_Plot.png
-# │   │   ├── PlotData_CLPH_Wheat_Thresholds010.png
-# │   │   ├── PlotData_LPH_Wheat_Inse010.png
-# │   │   ├── PlotData_LPH_Wheat_Insecticides10.png
-# │   │   ├── PlotData_LPH_Wheat_InsecticideTest.png
-# │   │   ├── PlotData_LPH_Wheat_Thresholds010.png
-# │   │   ├── Presentation_YieldCurve_Barley.jpeg
-# │   │   ├── Presentation_YieldCurve_OSR.jpeg
-# │   │   ├── Presentation_YieldCurve_Wheat.jpeg
-# │   │   ├── ThreeCrops_InsecticideSA_V2_CLPH_Plot.png
-# │   │   ├── ThreeCrops_InsecticideSA_V2_LPH_Plot.png
-# │   │   ├── ThreeCrops_InsecticideSA_V2_YL_Plot.png
-# │   │   ├── ThreeCrops_InsecticideSA_V3_LPH_Plot.png
-# │   │   ├── ThreeCrops_ThresholdSA_V2_CLPH_Plot.png
-# │   │   ├── ThreeCrops_ThresholdSA_V2_LPH_Plot.png
-# │   │   ├── ThreeCrops_ThresholdSA_V2_YL_Plot.png
-# │   │   ├── Wheat_InsecticideSA_V2_LPH_Plot.png
-# │   │   ├── Wheat_plots_patchwork.png
-# │   │   ├── Wheat_ThresholdSA_V2_LPH_Plot.png
-# │   │   ├── YL_Barley_V2.png
-# │   │   ├── YL_Barley_V3.png
-# │   │   ├── YL_OSR_TEST.png
-# │   │   ├── YL_OSR_V2.png
-# │   │   ├── YL_OSR_V3.png
-# │   │   ├── YL_ThreeCrops_V2.png
-# │   │   ├── YL_ThreeCrops_V3.png
-# │   │   ├── YL_ThreeCrops_V3_Draft.png
-# │   │   ├── YL_ThreeCrops_V3_Test.png
-# │   │   └── YL_Wheat_V2.png
+# │   │   ├── Figure2_CLPH_ThreeCrops.png
+# │   │   ├── Figure3_LPH_ThreeCrops.png
+# │   │   ├── Figure4_LPH_ThresholdSA_ThreeCrops.png
+# │   │   ├── Figure5_LPH_InsecticideSA_ThreeCrops.png
 # │   ├── LoopData
-# │   │   ├── Barley_Defaults_V2.csv
 # │   │   ├── Barley_Defaults_V3.csv
-# │   │   ├── Barley_InsecticideSA_V2_CLPH.csv
-# │   │   ├── Barley_InsecticideSA_V2_LPH.csv
-# │   │   ├── Barley_InsecticideSA_V2_YL.csv
 # │   │   ├── Barley_InsecticideSA_V3_CLPH.csv
 # │   │   ├── Barley_InsecticideSA_V3_LPH.csv
 # │   │   ├── Barley_InsecticideSA_V3_YL.csv
 # │   │   ├── Barley_ThresholdSA_V2_CLPH.csv
 # │   │   ├── Barley_ThresholdSA_V2_LPH.csv
 # │   │   ├── Barley_ThresholdSA_V2_YL.csv
-# │   │   ├── OSR_Defaults_TEST.csv
-# │   │   ├── OSR_Defaults_V2.csv
 # │   │   ├── OSR_Defaults_V3.csv
-# │   │   ├── OSR_InsecticideSA_V2_CLPH.csv
-# │   │   ├── OSR_InsecticideSA_V2_LPH.csv
-# │   │   ├── OSR_InsecticideSA_V2_YL.csv
 # │   │   ├── OSR_InsecticideSA_V3_CLPH.csv
 # │   │   ├── OSR_InsecticideSA_V3_LPH.csv
 # │   │   ├── OSR_InsecticideSA_V3_YL.csv
 # │   │   ├── OSR_ThresholdSA_V2_CLPH.csv
 # │   │   ├── OSR_ThresholdSA_V2_LPH.csv
 # │   │   ├── OSR_ThresholdSA_V2_YL.csv
-# │   │   ├── Wheat_Defaults_V2.csv
 # │   │   ├── Wheat_Defaults_V3.csv
-# │   │   ├── Wheat_InsecticideSA_V2_CLPH.csv
-# │   │   ├── Wheat_InsecticideSA_V2_LPH.csv
-# │   │   ├── Wheat_InsecticideSA_V2_YL.csv
 # │   │   ├── Wheat_InsecticideSA_V3_CLPH.csv
 # │   │   ├── Wheat_InsecticideSA_V3_LPH.csv
 # │   │   ├── Wheat_InsecticideSA_V3_YL.csv
@@ -152,104 +72,35 @@ This work was supported by the Natural Environment Research Council Grant/Award 
 # │   │   ├── Wheat_ThresholdSA_V2_LPH.csv
 # │   │   └── Wheat_ThresholdSA_V2_YL.csv
 # │   └── Tables
-# │       ├── TableX_MarketDataAllCrops.txt
-# │       ├── TableX_MarketDataAllCrops_Reframe.txt
-# │       ├── TableX_OutputSummaryForBarley.txt
-# │       ├── TableX_OutputSummaryForOSR.txt
-# │       ├── TableX_OutputSummaryForThreeCrops.txt
-# │       ├── TableX_OutputSummaryForWheat.txt
-# │       ├── TableY_Attempt2.txt
-# │       ├── TableY_OutputSummaryForBarley.txt
-# │       ├── TableY_OutputSummaryForOSR.txt
-# │       ├── TableY_OutputSummaryForThreeCrops.txt
-# │       ├── TableY_OutputSummaryForWheat.txt
-# │       ├── TableZ_Attempt3.txt
-# │       ├── TableZ_Barley_PlotData.csv
-# │       ├── TableZ_Example0PlotData_All.csv
-# │       ├── TableZ_Example0PlotData_Barley.csv
-# │       ├── TableZ_Example0PlotData_OSR.csv
-# │       ├── TableZ_Example0PlotData_Wheat.csv
-# │       ├── TableZ_Example1PlotData_All.csv
-# │       ├── TableZ_Example1PlotData_Barley.csv
-# │       ├── TableZ_Example1PlotData_OSR.csv
-# │       ├── TableZ_Example1PlotData_Wheat.csv
-# │       ├── TableZ_OSR_PlotData.csv
-# │       ├── TableZ_OutputSummaryForBarley.txt
-# │       ├── TableZ_OutputSummaryForOSR.txt
-# │       ├── TableZ_OutputSummaryForThreeCrops.txt
-# │       ├── TableZ_OutputSummaryForWheat.txt
-# │       ├── TableZ_Plot_All_CLPH.csv
-# │       ├── TableZ_Plot_All_LPH.csv
-# │       ├── TableZ_Plot_All_YL.csv
-# │       ├── TableZ_Plot_Barley_CLPH.csv
-# │       ├── TableZ_Plot_Barley_LPH.csv
-# │       ├── TableZ_Plot_Barley_YL.csv
-# │       ├── TableZ_Plot_OSR_CLPH.csv
-# │       ├── TableZ_Plot_OSR_LPH.csv
-# │       ├── TableZ_Plot_OSR_YL.csv
-# │       ├── TableZ_Plot_Wheat_CLPH.csv
-# │       ├── TableZ_Plot_Wheat_LPH.csv
-# │       ├── TableZ_Plot_Wheat_YL.csv
-# │       └── TableZ_Wheat_PlotData.csv
+# │       ├── Table2_MarketDataSummary.txt
 # ├── README.md
 # ├── Scripts
-# │   ├── Estimate_OSRYield.R
-# │   ├── MarketData
-# │   │   └── TableX_OutputMarketData.R
-# │   ├── Note_CompareWheatToZhang.R
-# │   ├── PlottingX.R
-# │   ├── PlotYieldCurves.R
-# │   ├── ProductionFunction_V1.R
-# │   ├── TableX_Barley.R
-# │   ├── TableX_Barley_NewLPHCalcs.R
-# │   ├── TableX_OSR.R
-# │   ├── TableX_OSR_NewLPHCalcs.R
-# │   ├── TableX_ThreeCrops.R
-# │   ├── TableX_Wheat.R
-# │   ├── TableX_Wheat_NewLPHCalcs.R
-# │   ├── TableZ_Barley.R
-# │   ├── TableZ_Barley_Corrected.R
-# │   ├── TableZ_Barley_Plotting.R
-# │   ├── TableZ_HolyGrail.R
-# │   ├── TableZ_OSR.R
-# │   ├── TableZ_OSR_Corrected.R
-# │   ├── TableZ_OSR_Plotting.R
-# │   ├── TableZ_OSR_Plotting_New.R
-# │   ├── TableZ_ThreeCrops.R
-# │   ├── TableZ_Wheat.R
-# │   ├── TableZ_Wheat_Corrected.R
-# │   ├── TableZ_Wheat_Corrected_WithChanges.R
-# │   ├── TableZ_Wheat_Plotting.R
-# │   ├── TableZ_Wheat_Plotting_NewInsecticides.R
-# │   ├── ThinkingAboutPesticides.R
-# │   ├── TryingToIncludeVariation.R
-# │   ├── V2
-# │   │   ├── XX_Barley_V2_DefaultsOnly.R
-# │   │   ├── XX_Barley_V2_InsecticideSA.R
-# │   │   ├── XX_Barley_V2_ThresholdSA.R
-# │   │   ├── XX_Barley_V3_DefaultsOnly.R
-# │   │   ├── XX_Barley_V3_InsecticideSA.R
-# │   │   ├── XX_FactsheetPlot_V3.R
-# │   │   ├── XX_OSR_V2_DefaultsOnly.R
-# │   │   ├── XX_OSR_V2_InsecticideSA.R
-# │   │   ├── XX_OSR_V2_ThresholdSA.R
-# │   │   ├── XX_OSR_V3_DefaultsOnly.R
-# │   │   ├── XX_OSR_V3_InsecticideSA.R
-# │   │   ├── XX_ThreeCrops_V2_DefaultsOnly.R
-# │   │   ├── XX_ThreeCrops_V2_InsecticideSA.R
-# │   │   ├── XX_ThreeCrops_V2_ThresholdSA.R
-# │   │   ├── XX_ThreeCrops_V3_DefaultsOnly.R
-# │   │   ├── XX_ThreeCrops_V3_HeadlineChanges.R
-# │   │   ├── XX_ThreeCrops_V3_InsecticideSA.R
-# │   │   ├── XX_Wheat_V2_DefaultsOnly.R
-# │   │   ├── XX_Wheat_V2_InsecticideSA.R
-# │   │   ├── XX_Wheat_V2_ThresholdSA.R
-# │   │   ├── XX_Wheat_V3_DefaultsOnly.R
-# │   │   └── XX_Wheat_V3_InsecticideSA.R
-# │   ├── XX_Wheat_Optimising.R
-# │   └── XX_Wheat_Optimising_ALl.R
-# └── WheatScripts
-#     └── ProductionFunction_V1.R
+# │   ├── Figures
+# │   │   ├── 05_Figure2_ThreeCrops_CLPH.R
+# │   │   ├── 06_Figure3_ThreeCrops_LPH.R
+# │   │   ├── 13_Figure4_ThresholdSA_ThreeCrops_LPH.R
+# │   │   ├── 18_Figure5_InsecticideSA_ThreeCrops_LPH.R
+# │   │   ├── 19_FigureB1_ThreeCrops_YL.R
+# │   │   └── XX_FactsheetPlot_V3.R
+# │   ├── Setup
+# │   │   ├── 02_Barley_DefaultsOnly.R
+# │   │   ├── 03_OSR_DefaultsOnly.R
+# │   │   ├── 04_Wheat_DefaultsOnly.R
+# │   │   ├── 07_ThreeCrops_DefaultsOnly.R
+# │   │   ├── 08_ThreeCrops_HeadlineChanges.R
+# │   │   └── SensitivityAnalysis
+# │   │       ├── InsecticideCosts
+# │   │       │   ├── 14_Barley_InsecticideSA.R
+# │   │       │   ├── 15_OSR_InsecticideSA.R
+# │   │       │   ├── 16_Wheat_InsecticideSA.R
+# │   │       │   └── 17_ThreeCrops_InsecticideSA.R
+# │   │       └── Thresholds
+# │   │           ├── 09_Barley_ThresholdSA.R
+# │   │           ├── 10_OSR_ThresholdSA.R
+# │   │           ├── 11_Wheat_ThresholdSA.R
+# │   │           └── 12_ThreeCrops_ThresholdSA.R
+# │   ├── Tables
+# │   │   └── 01_Table2_OutputMarketData.R
 
 ````
 
