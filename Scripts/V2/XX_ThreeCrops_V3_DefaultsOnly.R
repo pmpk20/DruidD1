@@ -604,6 +604,7 @@ LPH_Plot %>%
 
 
 ## Display data for summary sentences:
+## 10% change here
 Data %>% 
   dplyr::filter(CLPH_NE == 0.9 &
                   CLPH_Density %in% c(5.0, 10.0),
