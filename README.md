@@ -18,7 +18,7 @@ This work was supported by the Natural Environment Research Council Grant/Award 
 
 #### Last change: 08/09/2025
 
-#### Status: Accepted for publication at ***Ecosystem Services***
+#### Status: Published at ***Ecosystem Services*** here: https://doi.org/10.1016/j.ecoser.2025.101776 
 
 #### Organisation
 
