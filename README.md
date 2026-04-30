@@ -16,9 +16,64 @@ Peter King (Leeds), Theresa Robinson (JNCC), Charlotte Howard (Reading), Tom Bre
 
 This work was supported by the Natural Environment Research Council Grant/Award Number: NE/V006916/1 This work is part of task D1 of work package D for the DRUID project: <https://environment.leeds.ac.uk/geography-research-river-basin-processes-management/dir-record/research-projects/1656/drivers-and-repercussions-of-uk-insect-declines-druid>
 
-#### Last change: 08/09/2025
+#### Last change: 30/04/2026
 
-#### Status: Accepted for publication at ***Ecosystem Services***
+#### Status: Published in ***Ecosystem Services*** --- doi: [10.1016/j.ecoser.2025.101776](https://doi.org/10.1016/j.ecoser.2025.101776)
+
+------------------------------------------------------------------------
+
+## Interactive Shiny App
+
+**Live app: <https://pmpk20.shinyapps.io/druid-d1-yield-loss-explorer/>**
+
+The app lets readers interactively explore the paper's core results --- how pest pressure, natural enemy presence, and crop economics combine to determine farm-level yield losses for Barley, Wheat, and Oilseed Rape. It is built around the same Monte Carlo simulation (500 draws) used in the paper.
+
+### What it shows
+
+Each plot displays results across the full range of natural enemy presence (1%--100%) for three management strategies:
+
+| Strategy                | Description                                        |
+|------------------------------------|------------------------------------|
+| Never Spray (NS)        | All costs come from uncontrolled pest damage       |
+| Economic Threshold (ET) | Spray only when pest density exceeds the threshold |
+| Always Spray (AS)       | Full insecticide cost, no yield loss               |
+
+Three output views are available as tabs:
+
+-   **Loss per Hectare (£/ha)** --- monetary loss per hectare for all three strategies
+-   **Yield Loss (%)** --- loss as a percentage of total crop value (NS and ET only)
+-   **Change in LPH vs Full NE Presence** --- how much more farmers lose when natural enemy communities are below full capacity; directly quantifies the economic value of natural enemies
+
+### How to use it
+
+**Left panel controls:**
+
+| Control                    | Effect                                                                         |
+|------------------------------------|------------------------------------|
+| Crop                       | Switch between Barley, Wheat, and OSR (economic defaults update automatically) |
+| Pest density               | Select Low (5), Medium (7.5), or High (10) aphids/tiller                       |
+| Show confidence intervals  | Toggle ±1 SD ribbons on/off                                                    |
+| Custom economic parameters | Adjust crop price, yield, and spray costs to reflect your own scenario         |
+| Model parameters           | Change the economic threshold and field management strategy mix                |
+
+**Two curves are always shown:**
+
+-   **Solid line (blue)** --- paper defaults: 2011--2021 historical mean price, yield, and spray costs for the selected crop
+-   **Dashed line (red)** --- your custom values from the sliders
+
+When the sliders are at defaults both curves overlap. Adjusting any slider moves the dashed line so you can immediately see the effect of your assumptions relative to the paper's baseline. Hovering over either curve shows the exact values at that point.
+
+### Running locally
+
+``` r
+# Install dependencies if needed
+install.packages(c("shiny", "ggplot2", "dplyr", "tidyr", "readxl", "scales", "plotly"))
+
+# Run from the ShinyApp directory
+shiny::runApp("ShinyApp/app.R")
+```
+
+------------------------------------------------------------------------
 
 #### Organisation
 
@@ -29,8 +84,7 @@ This work was supported by the Natural Environment Research Council Grant/Award 
 -   "\_InsecticdeSA" refers to the sensitivity analysis around insecticide costs
 -   "\_ThresholdSA" refers to the sensitivity analysis around insecticide thresholds
 
-
-````
+```         
 
 ## List files recursively with nice tree
 # > fs::dir_tree(path = ".")
@@ -101,14 +155,7 @@ This work was supported by the Natural Environment Research Council Grant/Award 
 # │   │           └── 12_ThreeCrops_ThresholdSA.R
 # │   ├── Tables
 # │   │   └── 01_Table2_OutputMarketData.R
-
-````
-
-
-
-
-
-
+```
 
 ```         
 # ─ Session info ───────────────────────────────────────────────────────────────

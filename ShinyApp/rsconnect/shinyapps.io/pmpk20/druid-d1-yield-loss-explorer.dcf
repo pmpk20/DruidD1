@@ -1,0 +1,10 @@
+name: druid-d1-yield-loss-explorer
+title:
+username: pmpk20
+account: pmpk20
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 17267472
+bundleId:
+url: https://pmpk20.shinyapps.io/druid-d1-yield-loss-explorer/
+version: 1
