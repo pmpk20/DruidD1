@@ -1,5 +1,5 @@
 # DruidD1
-
+<a href="https://doi.org/10.5281/zenodo.17152767"><img src="https://zenodo.org/badge/679365202.svg" alt="DOI"></a>
 #### Title:
 
 *Economic valuation of pest regulation benefits provided by arthropods in the UK.*
