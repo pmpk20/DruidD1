@@ -1,5 +1,6 @@
 # DruidD1
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17152766.svg)](https://doi.org/10.5281/zenodo.17152766)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.679365202.svg)](https://doi.org/10.5281/zenodo.17152766)
+
 
 #### Title:
 
